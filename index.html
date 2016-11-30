@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>MatFin2</title>
+		  <script type="text/javascript" src="js/index.js"></script>
+		  <link rel="stylesheet" type="text/css" href="css/index.css">
+
+		  <!-- Meta tag viewport é uma área onde o site aparece e serve para controlar o zoom-->
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+	</head>
+
+	<body  class="w3-content" style="max-width:1300px">
+		<div class="Principal">
+			<div class="cabecalho">
+				<fieldset>
+					<label>Valor a Financiar:</label>
+					<input type="number" id="valorFinanciar" onblur="Mudarestado()" placeholder = "Digite aqui um valor!"></input>
+					<label>Taxa de Juros:</label>
+					<input type="number" id="taxaJuros" onblur="Mudarestado()" placeholder="Digite aqui a taxa de juros!"></input>
+					<label>Quantidade de Prestações:</label>
+					<input type="number" id="qtPrestacoes" onblur="Mudarestado()" placeholder = "Digite aqui um valor!"></input> <br/> <br/>
+					<form>
+						<fieldset>
+							<input type="radio" name="tabela" id="Rad_SAC" onclick="Mudarestado()" >SAC</input>
+							<input type="radio" name="tabela" id="Rad_PRICE" onclick="Mudarestado()" >PRICE</input>
+						</fieldset>
+					</form>	
+				</fieldset>
+			</div> <!--Cabecalho -->
+
+			<div id="mostrarTabelaSAC"  style="display:none;">
+				<select id = "select_SAC" onchange="Mudarestado()">
+					<option value="sac0">Tabela SAC</option>
+				  	<option value="sac1">Valor da Amortização (A)</option>
+				  	<option value="sac2">Saldo Devedor de ordem (t)</option>
+				  	<option value="sac3">Saldo Devedor de ordem (t - 1)</option>
+				  	<option value="sac4">Parcela de Juros de ordem (t)</option>
+					<option value="sac5">Prestação de ordem (t)</option>
+					<option value="sac6">Soma das Amortizações nos período (t) Exclusive á (t + k) inclusive</option>
+					<option value="sac7">Juros acumulados até um tempo (t)</option>
+					<option value="sac8">Soma dos Juros entre os período (t) inclusive e (t + k) Inclusive</option>
+					<option value="sac9">Soma das Prestações acumuladas (t)</option>
+					<option value="sac10">Soma das Prestações entre os período (t) Exclusive e (t + k) Inclusive</option>
+					<option value="sac11">Razão da progressão aritmética decrescente representada pelos valores das prestações</option>
+				</select>
+
+				<ul>
+					<li id="resSAC0" style="display:none;">
+			          	<label>Tabela SAC</label>
+			          	<div class="">
+			            	<ul class="fieldlist2">
+			              		<li><span id="fs_tabela" class="valuefield" />
+			              			<table border="1">
+			              					<thead>
+			              						<th>t</th>
+			              						<th>Saldo devedor</th>
+			              						<th>Amortizações constantes</th>
+			              						<th>Juros</th>
+			              						<th>prestações</th>
+			              					</thead>
+			              					<tbody id="sac-body">
+
+			              					</tbody>
+			              			</table>
+
+			              		</li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li id="resSAC1" style="display:none;">
+			          	<label>Valor da Amortização (A)</label>
+			          	<div class="">
+			            	<ul class="fieldlist2">
+			              		<li><span id="fs_valor_amortizacao" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li id="resSAC2" style="display:none;">
+			          	<label>Saldo Devedor de ordem (t)</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			              		<li>Ordem:<input type="number" id="fs_ordem_t" style="padding-left:2px;width:80px;" onblur="Mudarestado()"  value = "0" /></li>
+			              		<li><span id="fs_saldo_devedor_t" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li id="resSAC3" style="display:none;">
+			        	<label>Saldo Devedor de ordem (t - 1)</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			              		<li>Ordem:<input type="number"  id="fs_ordem_t1" style="padding-left:2px;width:80px;" onblur="Mudarestado()"  value = "1" /></li>
+			              		<li><span id="fs_saldo_devedor_t1" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li id="resSAC4" style="display:none;">
+			        	<label>Parcela de Juros de ordem (t)</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			              		<li>Ordem:<input type="number" id="fs_ordem_t2" style="padding-left:2px;width:80px;" onblur="Mudarestado()"  value = "1" /></li>
+			              		<li><span id="fs_valor_juros_t" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li id="resSAC5" style="display:none;">
+			        	<label>Prestação de ordem (t)</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			              		<li>Período:<input type="number" id="fs_ordem_t4" style="padding-left:2px;width:80px;" onblur="Mudarestado()" value = "1" /></li>
+			              		<li><span id="fs_valor_prestacao_t" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li id="resSAC6" style="display:none;">
+			        	<label>Soma Amortizações nos período (t) Exclusive á (t + k) inclusive</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			              		<li>Período:<input type="number" id="fs_ordem_t3" style="padding-left:2px;width:80px;"  onblur="Mudarestado()"  value = "0" />á<input type="number" id="fs_ordem_t3k" style="padding-left:2px;width:80px;"  onblur="Mudarestado()"  value = "1" /></li>
+			              		<li><span id="fs_valor_amortizacao_tk" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li id="resSAC7" style="display:none;">
+			          	<label>Juros acumulados até um tempo (t)</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			              		<li>Período:<input type="number" id="fs_ordem_t5" style="padding-left:2px;width:80px;" onblur="Mudarestado()"  value = "0" /></li>
+			              		<li><span id="fs_valor_juros_ta" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li id="resSAC8" style="display:none;">
+			        	<label>Soma dos Juros entre os período (t) inclusive e (t + k) inclusive</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			              		<li>Período:<input type="number" id="fs_ordem_t6" style="padding-left:2px;width:80px;" onblur="Mudarestado()"  value = "1"  />+<input type="number" id="fs_ordem_t6k" style="padding-left:2px;width:80px;" onblur="Mudarestado()"  value = "1"  /></li>
+			              		<li><span id="fs_valor_juros_tk" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li id="resSAC9" style="display:none;">
+			        	<label>Soma das Prestações acumuladas (t)</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			            		<li>Período:<input type="number" id="fs_ordem_t7" style="padding-left:2px;width:80px;" onblur="Mudarestado()"  value = "1" /></li>
+			              		<li><span id="fs_valor_prestacao_ta" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+			        </li>
+			       	<li id="resSAC10" style="display:none;">
+			          	<label>Soma das Prestações entre os período (t) Exclusive e (t + k) inclusive</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			              		<li>Período: <input type="number" id="fs_ordem_t8" style="padding-left:2px;width:80px;"  onblur="Mudarestado()"  value = "0"  />+<input type="number" id="fs_ordem_t8k" style="padding-left:2px;width:80px;"  onblur="Mudarestado()"  value = "1"  /></li>
+			              		<li><span id="fs_valor_prestacao_tk" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li id="resSAC11" style="display:none;">
+			          	<label>Razão da progressão aritmética decrescente representada pelos valores das prestações</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			              		<li><span id="fs_valor_decrescimo" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+			        </li>
+		      	</ul>
+
+			</div> <!--Monstrar tabela -->
+
+			<div id="mostrarTabelaPRICE"  style="display:none;">
+				<select id = "select_PRICE" onchange="Mudarestado()">
+					<option value="price0">Tabela Price</option>
+				  	<option value="price1">Valor das Prestações</option>
+				  	<option value="price2">Saldo Devedor de ordem (t)</option>
+				  	<option value="price3">Saldo Devedor de ordem (t - 1)</option>
+				  	<option value="price4">Primeira Amortização</option>
+				  	<option value="price5">Parcela de Amortização de ordem (t)</option>
+				  	<option value="price6">Amortizações acumuladas até o período (t)</option>
+				  	<option value="price7">Amortizações acumuladas entre os período (t) exclusive e (t + k) inclusive</option>
+				  	<option value="price8">Parcela de Juros de ordem (t)</option>
+				  	<option value="price9">Juros acumulados até um tempo (t)</option>
+				  	<option value="price10">Juros acumulados entre os período (t) exclusive e (t + k) inclusive</option>
+				</select>
+				<ul>
+					<li id="resPRICE0" style="display:none;">
+			          	<label>Tabela PRICE</label>
+			          	<div class="">
+			            	<ul class="fieldlist2">
+			              		<li><span id="fs_tabela" class="valuefield" />
+			              			<table border="1">
+			              					<thead>
+			              						<th>t</th>
+			              						<th>Saldo devedor P(t)</th>
+			              						<th>Amortizações A(t)</th>
+			              						<th>Juros (Jt)</th>
+			              						<th>prestações(R)</th>
+			              					</thead>
+			              					<tbody id="price-body">
+
+			              					</tbody>
+			              			</table>
+
+			              		</li>
+			            	</ul>
+			            </div>
+			        </li>	
+					<li id="resPRICE1" style="display:none;">
+		          		<label>Valor das Prestações</label>
+		          		<div class="">
+		            		<ul class="fieldlist2">
+		              			<li><span id="fp_valor_prestacao" class="valuefield" /></li>
+		            		</ul>
+		          		</div>
+	          		</li>
+	          		<li id="resPRICE2" style="display:none;">
+			          	<label>Saldo Devedor de ordem (t)</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+				              	<li>Ordem:<input type="number" id="fp_ordem_t" style="padding-left:2px;width:80px;"  onblur="Mudarestado()"  value = "0" /></li>
+				              	<li><span id="fp_saldo_devedor_t" class="valuefield" /></li>
+			            	</ul>
+			          	</div>
+			        </li>
+			        <li id="resPRICE3" style="display:none;">
+          				<label>Saldo Devedor de ordem (t - 1)</label>
+          				<div>
+			            	<ul class="fieldlist2">
+				              <li>Ordem:<input type="number" id="fp_ordem_t1" style="padding-left:2px;width:80px;" onblur="Mudarestado()"  value = "1" /></li>
+				              <li><span id="fp_saldo_devedor_t1" class="valuefield" /></li>
+			            	</ul>
+			          	</div>
+        			</li>
+        			<li id="resPRICE4" style="display:none;">
+          				<label>Primeira Amortização</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			              		<li><span id="fp_valor_amortizacao_1" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+        			</li>
+			        <li id="resPRICE5" style="display:none;">
+			          	<label>Parcela de Amortização de ordem (t)</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			              		<li>Ordem:<input type="number" id="fp_ordem_t3" style="padding-left:2px;width:80px;" onblur="Mudarestado()"  value = "1" /></li>
+			              		<li><span id="fp_valor_amortizacao_t" class="valuefield" /></li>
+			            	</ul>
+			          	</div>
+			        </li>
+
+			       	<li id="resPRICE6" style="display:none;">
+			          	<label>Amortizações acumuladas até o período (t)</label>
+		          		<div>
+		            		<ul class="fieldlist2">
+				             	<li>Período:<input type="number" id="fp_ordem_t4" style="padding-left:2px;width:80px;"  onblur="Mudarestado()"  value = "1" /></li>
+				              	<li><span id="fp_valor_amortizacao_ta" class="valuefield" /></li>
+		            		</ul>
+		          		</div>
+			        </li>
+			       	<li id="resPRICE7" style="display:none;">
+			         	<label>Amortizações acumuladas entre os período (t) exclusive e (t + k) inclusive</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+			              		<li>Período:<input type="number" id="fp_ordem_t5" style="padding-left:2px;width:80px;" onblur="Mudarestado()"  value = "5" />+<input type="number" id="fp_ordem_t5k" style="padding-left:2px;width:80px;" onblur="Mudarestado()"  value = "10" /></li>
+			              		<li><span id="fp_valor_amortizacao_tk" class="valuefield" /></li>
+			            	</ul>
+			          	</div>
+			        </li>
+					<li id="resPRICE8" style="display:none;">
+          				<label>Parcela de Juros de ordem (t)</label>
+          				<div>
+            				<ul class="fieldlist2">
+				              	<li>Ordem:<input type="number" id="fp_ordem_t2" style="padding-left:2px;width:80px;"  onblur="Mudarestado()"  value = "1"  /></li>
+				              	<li><span id="fp_valor_juros_t" class="valuefield" /></li>
+            				</ul>
+          				</div>
+        			</li>
+		          	<li id="resPRICE9" style="display:none;">
+		          		<label>Juros acumulados até um tempo (t)</label>
+		          		<div>
+		            		<ul class="fieldlist2">
+		              			<li>Período:<input type="number" id="fp_ordem_t6" style="padding-left:2px;width:80px;"  onblur="Mudarestado()"  value = "1" /></li>
+		              			<li><span id="fp_valor_juros_ta" class="valuefield" /></li>
+		            		</ul>
+		          		</div>
+		        	</li>
+			       	<li id="resPRICE10" style="display:none;">
+			        	<label>Juros acumulados entre os período (t) exclusive e (t + k) inclusive</label>
+			          	<div>
+			            	<ul class="fieldlist2">
+				              	<li>Período:<input type="number" id="fp_ordem_t7" style="padding-left:2px;width:80px;"  onblur="Mudarestado()"  value = "0" />+<input type="number" id="fp_ordem_t7k" style="padding-left:2px;width:80px;"  onblur="Mudarestado()"  value = "1" /></li>
+				              	<li><span id="fp_valor_juros_tk" class="valuefield" /></li>
+			            	</ul>
+			            </div>
+			        </li>
+	          	</ul>
+			</div> <!--Monstrar tabela -->
+		</div> <!--Principal -->
+	</body>
+
+</html>
