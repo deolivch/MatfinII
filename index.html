@@ -9,14 +9,85 @@
 	    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
 	    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
 	    
-	    <link rel="stylesheet" type="text/css" href="css/index.css" />
-		<link rel="stylesheet" type="text/css" href="css/index.css">
+	    <!--link rel="stylesheet" type="text/css" href="css/index.css"-->
+		
 		<script type="text/javascript" src="cordova.js"></script>
 
 		<!-- Meta tag viewport é uma área onde o site aparece e serve para controlar o zoom-->
 		<!--meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"-->
     	<!--script type="text/javascript" src="js/index.js"></script-->
 		
+	<style>
+		
+		input[type=number]
+		{
+		    width: 100%;
+		    padding: 12px 20px;
+		    margin: 8px 0;
+		    box-sizing: border-box;
+			border: 2px solid blue;
+    		border-radius: 4px;
+    		background-color: #FFFFFF;
+    		border: 3px solid #ccc;
+		    -webkit-transition: 0.5s;
+		    transition: 0.5s;
+		    outline: none;
+			color: #8B0000;
+    		border: 2px solid #4CAF50; /* Green */
+    	}
+
+    	table
+    	{
+		    width: 100%;
+		    width: 100%;
+		    background-color: #FFFFFF; /* Green */
+		    padding: 12px 20px;
+		    margin: 8px 0;
+		    border: 2px solid blue;
+    		border-radius: 4px;
+    		border: 3px solid #ccc;
+		    -webkit-transition: 0.5s;
+		    transition: 0.5s;
+		    outline: none;
+
+    	}
+
+		input[type=number]:focus 
+		{
+    		border: 3px solid #555;
+		}
+
+		select 
+		{
+		    width: 100%;
+		    padding: 16px 20px;
+		    border: none;
+		    border-radius: 4px;
+		    background-color: #FFFFFF;
+		    color: #8B0000;
+
+		}
+		
+		input[type=radio] 
+		{
+		    border-radius: 25px;
+		    background: #73AD21;
+		    padding: 20px; 
+		    width: 100px;
+		    height: 150px; 
+		}
+		body 
+		{
+			background-color: #ADD8E6;
+			font-size: 150%;
+		}
+		span
+		{
+			background-color: white;
+		    color: green;
+		}
+	</style>
+
 	</head>
 
 	<body  class="w3-content" style="max-width:1300px">
@@ -24,7 +95,7 @@
 			<div class="cabecalho">
 				<fieldset>
 					<label>Valor a Financiar:</label>
-					<input type="number" id="valorFinanciar" onblur="Mudarestado()" placeholder = "Digite aqui um valor!"></input>
+					<input type="number" id="valorFinanciar" onblur="Mudarestado()" placeholder = "Digite aqui um valor!" ></input>
 					<label>Taxa de Juros:</label>
 					<input type="number" id="taxaJuros" onblur="Mudarestado()" placeholder="Digite aqui a taxa de juros!"></input>
 					<label>Quantidade de Prestações:</label>
