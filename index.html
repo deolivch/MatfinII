@@ -493,13 +493,13 @@
 	                  if(i > 0 && i <= numeroprestacoes)
 	                  {
 	                    var SaldoDevedor = SaldoDevedor - (valorFinanciado / numeroprestacoes);
-	                    var textnode = document.createTextNode(SaldoDevedor);
+	                    var textnode = document.createTextNode(SaldoDevedor.toFixed(2));
 	                    node.appendChild(textnode);
 	                    linha.appendChild(node);
 	                  }
 	                  else if(i < 1)
 	                  {
-	                    var textnode = document.createTextNode(valorFinanciado);
+	                    var textnode = document.createTextNode(valorFinanciado.toFixed(2));
 	                    node.appendChild(textnode);
 	                    linha.appendChild(node);
 	                  }
@@ -514,7 +514,7 @@
 	                  if(i > 0 && i <= numeroprestacoes)
 	                      {
 	                        var amortização = valorFinanciado / numeroprestacoes;
-	                        var textnode = document.createTextNode(amortização);
+	                        var textnode = document.createTextNode(amortização.toFixed(2));
 	                        node.appendChild(textnode);
 	                        linha.appendChild(node);
 	                      }
@@ -526,7 +526,7 @@
 	                      }
 	                      else
 	                      {
-	                        var textnode = document.createTextNode(amortização * numeroprestacoes);
+	                        var textnode = document.createTextNode((amortização * numeroprestacoes).toFixed(2));
 	                        node.appendChild(textnode);
 	                        linha.appendChild(node);
 	   
@@ -538,7 +538,7 @@
 	                      {  
 	                        var juros = (SaldoDevedor + (valorFinanciado / numeroprestacoes)) * taxaJuros;
 	                        somarJuros = somarJuros + juros;
-	                        var textnode = document.createTextNode(juros);
+	                        var textnode = document.createTextNode(juros.toFixed(2));
 	                        node.appendChild(textnode);
 	                        linha.appendChild(node); 
 	                      }
@@ -551,7 +551,7 @@
 
 	                      else
 	                      {
-	                        var textnode = document.createTextNode(somarJuros);
+	                        var textnode = document.createTextNode(somarJuros.toFixed(2));
 	                        node.appendChild(textnode);
 	                        linha.appendChild(node);
 	                      }         
@@ -562,7 +562,7 @@
 	                  {
 	                    var prestacao = amortização + juros;
 	                    somarPrestacoes = somarPrestacoes + prestacao;
-	                    var textnode = document.createTextNode(prestacao);
+	                    var textnode = document.createTextNode(prestacao.toFixed(2));
 	                    node.appendChild(textnode);
 	                    linha.appendChild(node); 
 
@@ -575,7 +575,7 @@
 	                  } 
 	                  else
 	                  {
-	                    var textnode = document.createTextNode(somarPrestacoes);
+	                    var textnode = document.createTextNode(somarPrestacoes.toFixed(2));
 	                    node.appendChild(textnode);
 	                    linha.appendChild(node);
 	                  }
@@ -839,7 +839,8 @@
 	              }
 	              else if(i > 0 && i < numeroprestacoes)
 	              {
-	                  var textnode = document.createTextNode((SaldoDevedorPrice - ((valorFinanciado / ((Math.pow((1 + taxaJuros), numeroprestacoes) - 1) / (Math.pow((1 + taxaJuros), numeroprestacoes) * taxaJuros))) - (SaldoDevedorPrice * taxaJuros))));
+	                sd_Price = (SaldoDevedorPrice - ((valorFinanciado / ((Math.pow((1 + taxaJuros), numeroprestacoes) - 1) / (Math.pow((1 + taxaJuros), numeroprestacoes) * taxaJuros))) - (SaldoDevedorPrice * taxaJuros)))
+	                var textnode = document.createTextNode(sd_Price.toFixed(2));
 	              }
 	              else
 	              {
@@ -862,11 +863,11 @@
 	              {
 	                amortizaçãoPrice = (valorFinanciado / ((Math.pow((1 + taxaJuros), numeroprestacoes) - 1) / (Math.pow((1 + taxaJuros), numeroprestacoes) * taxaJuros))) - (taxaJuros * SaldoDevedorPrice);
 	                amortizaçãoPriceTotal = amortizaçãoPriceTotal + amortizaçãoPrice;
-	                var textnode = document.createTextNode(amortizaçãoPrice);
+	                var textnode = document.createTextNode(amortizaçãoPrice.toFixed(2));
 	              }
 	              else
 	              {
-	                var textnode = document.createTextNode(amortizaçãoPriceTotal);
+	                var textnode = document.createTextNode(amortizaçãoPriceTotal.toFixed(2));
 	              }
 
 	              node.appendChild(textnode);
@@ -882,11 +883,11 @@
 	              {
 	                var jurosPrice = SaldoDevedorPrice * taxaJuros;
 	                somarJurosPrice = somarJurosPrice + jurosPrice;
-	                var textnode = document.createTextNode(jurosPrice);
+	                var textnode = document.createTextNode(jurosPrice.toFixed(2));
 	              }
 	              else
 	              {
-	                var textnode = document.createTextNode(somarJurosPrice);
+	                var textnode = document.createTextNode(somarJurosPrice.toFixed(2));
 	              }
 	              
 	              node.appendChild(textnode);
@@ -903,12 +904,12 @@
 	              {
 	                var pmt = (valorFinanciado / ((Math.pow((1 + taxaJuros), numeroprestacoes) - 1) / (Math.pow((1 + taxaJuros), numeroprestacoes) * taxaJuros)));
 	                somarPrestacoesPrice = somarPrestacoesPrice + pmt;
-	                var textnode = document.createTextNode(pmt);
+	                var textnode = document.createTextNode(pmt.toFixed(2));
 	                
 	              }
 	              else
 	              {
-	                var textnode = document.createTextNode(somarPrestacoesPrice);
+	                var textnode = document.createTextNode(somarPrestacoesPrice.toFixed(2));
 	              }
 	                node.appendChild(textnode);
 	                linha.appendChild(node);
